@@ -1,0 +1,16 @@
+{
+  "name": "node_repiate_learn",
+  "version": "1.0.0",
+  "description": "node_learn",
+  "main": "y",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "ZibaloVL <fotoroom.md@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.2",
+    "open": "^7.0.2"
+  }
+}
