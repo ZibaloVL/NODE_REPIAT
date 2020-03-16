@@ -24,6 +24,9 @@ app.set('views','views')
 
 app.use(express.static('public'))
 
+app.use(express.urlencoded({
+  extended: true
+}))
 //----registration page----
 app.use('/', homePage)
 app.use('/courses', coursesPage)

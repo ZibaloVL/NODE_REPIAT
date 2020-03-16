@@ -1,4 +1,26 @@
-  <h1>Add page</h1>
-    <a  href="/">Main page</a>
+  <h1>Add course</h1>
+  <form action="/add" method="POST">
+    <div class="form-group">
+      <label for="">name course</label>
+      <input type="text"
+        class="form-control" name="nameCourse" id="" aria-describedby="helpId" placeholder="">
+      <small id="helpId" class="form-text text-muted">введите имя курса</small>
+    </div>
+    <div class="form-group">
+      <label for="">price course</label>
+      <input type="text"
+        class="form-control" name="priceCourse" id="" aria-describedby="helpId" placeholder="">
+      <small id="helpId" class="form-text text-muted">введите цену курса</small>
+    </div>
+    <div class="form-group">
+      <label for="">img course</label>
+      <input type="text"
+        class="form-control" name="imgUrlCourse" id="" aria-describedby="helpId" placeholder="">
+      <small id="helpId" class="form-text text-muted">введите url img </small>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">SEND</button>
+  </form>
+  <hr>
+  <a  href="/">Main page</a>
 
   
