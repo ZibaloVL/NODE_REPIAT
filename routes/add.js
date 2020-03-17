@@ -16,7 +16,7 @@ router.post ( '/', ( req, res ) => {
   console.log( req.body )
   const course = new addCourses ( req.body )
   course.saveCourse ()
-  res.redirect ( '/' )
+    .then ( () => res.redirect ( '/' ))
 }
 )
 

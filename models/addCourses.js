@@ -10,14 +10,34 @@ class addCourses {
     this.id =  uniqid.time()
   }
 
-  async saveCourse () {
-    const courseAll = await this.readAllCourse ()
-    console.log('courses: ', JSON.parse (courseAll) )
+  async saveCourse () { 
+    const getCourses = await this.readAllCourse ()
+    console.log('courses: ',  )
+    const courseAll = JSON.parse ( getCourses )
+    courseAll.push({
+      id: this.id,
+      course: this.course,
+      price: this.price,
+      img: this.img 
+    })
+    console.log('courseAll', courseAll)
+    return new Promise (
+      (resolve, reject) => {
+        fs.writeFile ( 
+          path.join ( __dirname, '..', 'data', 'courses.json'),
+          JSON.stringify ( courseAll ),
+          ( err ) => {
+           if ( err ) { reject ( err )}
+            else { resolve ( console.log ('write  resolveOK') ) } 
+           }  
+        )
+      }
+    )
   }
 
   readAllCourse () {    
     return new Promise ( 
-      (resolve, reject) => {
+      ( resolve, reject ) => {
         fs.readFile ( 
           path.join ( __dirname, '..', 'data', 'courses.json'),
           'utf8',
