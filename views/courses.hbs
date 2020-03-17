@@ -1,3 +1,26 @@
   <h1>Courses</h1>
+  {{#if AllCourses.length}}
+   <div class="row">
+  {{#each  AllCourses}}
+    <div class="col s4 m4">
+      <div class="card">
+        <div class="card-image">
+          <img src={{img}}>
+        </div>
+        <div class="card-content"> <span class="card-title">{{course}}</span></div>
+        <hr>
+        <div class="card-content">
+          <p class="price">{{price}}</p>
+        </div>
+        <div class="card-action">
+          <a href="#">{{id}}</a>
+        </div>
+      </div>
+    </div>
+  {{/each}}  
+  </div>
+  {{else}}
+  <h2> No have courses</h2>
+  {{/if}}
   <a  href="/">Main Page</a>
   
