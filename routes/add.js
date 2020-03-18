@@ -1,5 +1,5 @@
 const { Router } = require ( 'express' )
-const addCourses = require ( '../models/addCourses' )
+const Course = require ( '../models/Course' )
 router = Router ()
 
 
@@ -14,7 +14,7 @@ router.get ('/', ( req, res ) => {
 
 router.post ( '/', ( req, res ) => {
   console.log( req.body )
-  const course = new addCourses ( req.body )
+  const course = new Course ( req.body )
   course.saveCourse ()
     .then ( () => res.redirect ( '/' ))
 }

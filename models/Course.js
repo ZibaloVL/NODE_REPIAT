@@ -2,7 +2,10 @@ const uniqid = require('uniqid')
 const path = require('path')
 const fs = require('fs')
 
-class addCourses {
+
+
+
+class Course {
   constructor( payload ) {
     this.course = payload.nameCourse
     this.price = payload.priceCourse
@@ -10,8 +13,25 @@ class addCourses {
     this.id =  uniqid.time()
   }
 
+  static readAllCourse () {    
+    return new Promise ( 
+      ( resolve, reject ) => {
+        fs.readFile ( 
+          path.join ( __dirname, '..', 'data', 'courses.json'),
+          'utf8',
+          ( err, contents ) => { 
+            if ( err ) { reject ( err ) } 
+              else { 
+                resolve ( contents ) 
+            }
+          }
+        )
+      }
+    )
+  }
+
   async saveCourse () { 
-    const getCourses = await this.readAllCourse ()
+    const getCourses = await Course.readAllCourse ()
     console.log('courses: ',  )
     const courseAll = JSON.parse ( getCourses )
     courseAll.push({
@@ -35,22 +55,10 @@ class addCourses {
     )
   }
 
-  readAllCourse () {    
-    return new Promise ( 
-      ( resolve, reject ) => {
-        fs.readFile ( 
-          path.join ( __dirname, '..', 'data', 'courses.json'),
-          'utf8',
-          ( err, contents ) => { 
-            if ( err ) { reject ( err ) } 
-              else { 
-                resolve ( contents ) 
-            }
-          }
-        )
-      }
-    )
+  static async getById (id) {
+    const courses = JSON.parse ( await Course.readAllCourse () )
+    return courses.find( c => c.id === id )
   }
 }
 
-module.exports = addCourses
+module.exports = Course
