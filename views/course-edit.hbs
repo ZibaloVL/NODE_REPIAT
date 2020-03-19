@@ -1,0 +1,48 @@
+  <h1>Edit course</h1>
+  <form action="/courses/edit" method="POST">
+    <div class="form-group">
+      <label for="">name course</label>
+      <input type="text"
+        class="form-control" 
+        name="course" 
+        id="" 
+        aria-describedby="helpId" 
+        placeholder=""
+        value={{course.course}}
+        >
+      <small id="helpId" class="form-text text-muted">введите имя курса</small>
+    </div>
+    <div class="form-group">
+      <label for="">price course</label>
+      <input type="text"
+        class="form-control" 
+        name="price" 
+        id="" 
+        aria-describedby="helpId" 
+        placeholder=""
+        value={{course.price}}
+        >
+      <small id="helpId" class="form-text text-muted">введите цену курса</small>
+    </div>
+    <div class="form-group">
+      <label for="">img course</label>
+      <input type="text"
+        class="form-control" 
+        name="img" 
+        id="" 
+        aria-describedby="helpId" 
+        placeholder=""
+        value={{course.img}}
+        >
+      <small id="helpId" class="form-text text-muted">введите url img </small>
+    </div>
+    <input 
+      type="hidden" 
+      name="id"
+      value={{course.id}}>
+    <button type="submit" class="btn btn-primary btn-lg">SEND</button>
+  </form>
+  <hr>
+  <a  href="/">Main page</a>
+
+  
