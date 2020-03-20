@@ -12,9 +12,29 @@
         <div class="card-content">
           <p class="price">{{price}}</p>
         </div>
-        <div class="card-action">
-          <a href="courses/{{id}}" target="_blank">more details</a>
-          <a href="courses/{{id}}/edit?admission=true">Redaction</a>
+        <div class="card-action actionInLine">
+          <a 
+            href="courses/{{id}}" 
+            target="_blank"
+            class="waves-effect waves-teal btn-flat"
+            >more details
+            </a>
+          <a 
+            href="courses/{{id}}/edit?admission=true"
+            class="waves-effect waves-teal btn-flat"  
+          >Redaction
+          </a>
+          <form action="/card" method="POST">
+            <input 
+             type="hidden" 
+             name="id" 
+             value={{id}}>
+            <button 
+              type="submit"
+              class="waves-effect waves-teal btn-small"
+            >Add to card
+            </button>
+          </form>
         </div>
       </div>
     </div>

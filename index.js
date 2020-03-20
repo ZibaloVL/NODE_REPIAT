@@ -6,6 +6,7 @@ const exphbs  = require('express-handlebars')
 const homePage = require('./routes/home')
 const coursesPage = require('./routes/courses')
 const addPage = require('./routes/add')
+const card = require('./routes/card')
 // ===== end ADD ROUTE PAGE=====
 const app = express()
 // make layout
@@ -31,6 +32,7 @@ app.use(express.urlencoded({
 app.use('/', homePage)
 app.use('/courses', coursesPage)
 app.use('/add', addPage)
+app.use('/card', card)
 //----end registration page----
 
 

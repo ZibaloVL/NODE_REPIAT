@@ -1,3 +1,8 @@
 .nav-wrapper {
   padding: 0 2rem;
 }
+
+.actionInLine {
+  display: flex;
+  justify-content: space-between;
+}
