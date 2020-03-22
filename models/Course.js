@@ -51,7 +51,6 @@ class Course {
 
   async saveCourse () { 
     const getCourses = await Course.readAllCourse ()
-    console.log('courses: ',  )
     const courseAll = JSON.parse ( getCourses )
     courseAll.push({
       id: this.id,
@@ -59,7 +58,6 @@ class Course {
       price: this.price,
       img: this.img 
     })
-    console.log('courseAll', courseAll)
     return new Promise (
       (resolve, reject) => {
         fs.writeFile ( 

@@ -5,7 +5,6 @@ router = Router ()
 
 router.get ( '/', async ( req, res ) => {
   const AllInCard = await Card.fetch ()
-  console.log('AllInCard.courses', AllInCard.courses)
   res.render ( 'card', 
     {
       title: 'Card',
@@ -17,9 +16,9 @@ router.get ( '/', async ( req, res ) => {
 })
 
 router.delete ('/remove/:id', async ( req, res ) => {
-    const card = Card.removeCourse( req.params.id )
-    console.log ('status 3000')
-    res.status(200).json(card)
+    const card = await Card.removeCourse( req.params.id )
+    console.log ('card_delete',card )
+    res.status(200).json(card) // не передаётся в тело card
   }
 )
 
