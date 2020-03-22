@@ -1,1 +1,38 @@
 <h1>Card page</h1>
+<div class="card">
+  {{#if courses}}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name Course</th>
+          <th>Count Course</th>
+          <th>Price Course</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each courses}}
+        <tr>
+          <td scope="row">{{course}}</td>
+          <td>{{price}}</td>
+          <td>{{count}}</td>
+          <td>
+            <button 
+              type="submit"
+              name=""
+              id=""
+              class="btn  waves-effect waves-light btn-primary cardRemove"
+              data-id="{{id}}" 
+              > - 
+            </button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div>
+      <p> Summa: <span class="price">{{sum}}</span></p>
+    </div>
+  {{else}}
+    <h2>cart is empty</h2>
+  {{/if}}
+</div>  

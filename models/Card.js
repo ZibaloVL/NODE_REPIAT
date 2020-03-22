@@ -11,16 +11,31 @@ class Card {
     const indx = card.courses.findIndex ( i => i.id === course.id )
     if ( indx >= 0 ) {
       card.courses[ indx ].count = Number ( card.courses[ indx ].count ) + 1
-      card.price += Number ( course.price )
+      card.sum += Number ( course.price )
     } else {
       console.log ( 'typeof ( course )', typeof ( course ))
       course['count'] = 1
       card.courses.push( course )
-      card.price += Number ( course.price )
+      card.sum += Number ( course.price )
     }
-    await this.writeCard ( card )
+    await Card.writeCard ( card )
     
-  }
+  } 
+
+  static async removeCourse ( id ) {
+    const card = await Card.fetch ()
+    console.log ( 'card1:', card )
+    const idx = card.courses.findIndex ( c => c.id === id)
+    console.log ( 'card.courses[ idx ].count=', card.courses[ idx ].count )
+    card.sum -= Number ( card.courses[ idx ].price )  
+    if ( card.courses[ idx ].count > 1 ) {
+      card.courses[ idx ].count-- 
+    } else {
+      card.courses = card.courses.filter ( c => c.id != id ) 
+      console.log ( 'cardf:', card )
+    }
+    await Card.writeCard ( card )
+  }  
 
   static async writeCard ( card ) {
     //write data in card.json
