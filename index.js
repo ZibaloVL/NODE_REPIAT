@@ -1,6 +1,7 @@
-const express = require('express')
-const path = require('path')
-const exphbs  = require('express-handlebars')
+const express = require( 'express' )
+const path = require( 'path' )
+const exphbs  = require( 'express-handlebars' )
+const mongoose = require( 'mongoose');
 
 // =====ADD ROUTE PAGE=====
 const homePage = require('./routes/home')
@@ -35,8 +36,27 @@ app.use('/add', addPage)
 app.use('/card', card)
 //----end registration page----
 
+// name db fotoroom 
+// par db kuEifC50kGaGa0pN
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-  console.log(`server  is running on port ${PORT}`)
+
+
+async function start() {
+  const url = `mongodb+srv://fotoroom:kuEifC50kGaGa0pN@nodeshoplearn-fif3b.gcp.mongodb.net/test?retryWrites=true&w=majority`
+  try {
+    await mongoose.connect( url , {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
+    const PORT = process.env.PORT || 3000
+    app.listen(PORT, () => {
+    console.log(`server  is running on port ${PORT}`)
 })
+
+  } catch (error) {
+     console.log (error) 
+  }
+}
+
+start()
+
