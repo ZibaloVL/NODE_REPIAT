@@ -6,6 +6,7 @@ document.querySelectorAll('.price').forEach(node=>{
 }) 
 
 const cards = document.querySelector('.card')
+const tbodyCard = document.querySelector ( '.tbodyCard' )
 
 
 if ( cards ) {
@@ -17,16 +18,37 @@ if ( cards ) {
       })
       .then( res => {
         console.log (res)
-        res.json() //не приходит в тело card
+        return res.json() 
       })
       .then( card => {
         console.log ( 'card in app:', card )
-        if ( card.courses.length ) {
-          console.log ('change')
+        if ( card.courses.length  > 0 ) {
+          console.log( 'card.courses.length=', card.courses.length ) 
+          const  innerHtmltbodyCard = card.courses.map ( e =>
+            ` <tr>
+                <td scope="row">${e.course}</td>
+                <td>${ e.price }</td>
+                <td>${ e.count }</td>
+                <td>
+                  <button 
+                    type="submit"
+                    name=""
+                    id=""
+                    class="btn  waves-effect waves-light btn-primary cardRemove"
+                    data-id="${ e.id }" 
+                    >  -
+                  </button>
+                </td>
+              </tr>
+            `             
+          ).join('')
+            console.log ( 'innerHtmltbodyCard_end', innerHtmltbodyCard )
+            console.log ( 'tbodyCard', tbodyCard )
+            tbodyCard.innerHTML = innerHtmltbodyCard
         } else {
-          cards.innerrHTML = "<h2>cart is empty</h2>"
+          console.log ( 'remove' )
+          cards.innerHTML = "<h2>cart is empty</h2>"
         }
-      
       } ) 
     }
   })
