@@ -12,12 +12,30 @@ router.get ('/', ( req, res ) => {
   )
 })
 
-router.post ( '/', ( req, res ) => {
-  console.log( req.body )
-  const course = new Course ( req.body )
-  course.saveCourse ()
-    .then ( () => res.redirect ( '/' ))
-}
+router.post ( '/', async ( req, res ) => {
+    console.log( req.body )
+    const course = new Course ( 
+      {
+        title: req.body.nameCourse,
+        price: req.body.priceCourse,
+        img: req.body.imgUrlCourse
+      }
+    )
+     // include metod in mongoose
+    try {
+      await course.save()
+      res.redirect ( '/' )
+    } catch ( error ) {
+      console.log ( 'error in records' )
+      console.log ( error )
+    }
+    /*
+    const course = new Course ( req.body )
+    course.saveCourse ()
+      .then ( () => res.redirect ( '/' ))
+  */
+  }  
 )
+
 
 module.exports = router
