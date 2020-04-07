@@ -42,7 +42,8 @@ app.use('/card', card)
 
 
 async function start() {
-  const url = `mongodb+srv://fotoroom:kuEifC50kGaGa0pN@nodeshoplearn-fif3b.gcp.mongodb.net/test?retryWrites=true&w=majority`
+  // const url = `mongodb+srv://fotoroom:kuEifC50kGaGa0pN@nodeshoplearn-fif3b.gcp.mongodb.net/test?retryWrites=true&w=majority`
+  const url = `mongodb+srv://fotoroom:kuEifC50kGaGa0pN@nodeshoplearn-fif3b.gcp.mongodb.net/shopRepiat`
   try {
     await mongoose.connect( url , {
       useNewUrlParser: true,

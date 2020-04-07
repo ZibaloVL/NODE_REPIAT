@@ -10,10 +10,10 @@ const course = new Schema ({
     type: Number,
     require: true
   },
-  img: {
+  image: {
     type: String
   }
 })
 
 
-module.exports = model ( 'Course', course ) // make model/ his want constructor param of shema
+module.exports = model ( 'CourseRepiad', course ) // make model/ his want constructor param of shema
