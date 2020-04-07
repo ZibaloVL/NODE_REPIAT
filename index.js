@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 const express = require( 'express' )
 const path = require( 'path' )
 const exphbs  = require( 'express-handlebars' )
 const mongoose = require( 'mongoose')
+=======
+const express = require('express')
+const path = require('path')
+const exphbs  = require('express-handlebars')
+>>>>>>> parent of 45158fe... connect to db
 
 // =====ADD ROUTE PAGE=====
 const homePage = require('./routes/home')
@@ -61,3 +67,7 @@ async function start() {
 
 start()
 
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`server  is running on port ${PORT}`)
+})
