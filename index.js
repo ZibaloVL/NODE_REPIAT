@@ -1,7 +1,7 @@
 const express = require( 'express' )
 const path = require( 'path' )
 const exphbs  = require( 'express-handlebars' )
-const mongoose = require( 'mongoose')
+const mongoose = require( 'mongoose');
 
 // =====ADD ROUTE PAGE=====
 const homePage = require('./routes/home')
