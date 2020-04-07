@@ -12,16 +12,15 @@
         <div class="card-content">
           <p class="price">{{price}}</p>
         </div>
-        <!--
         <div class="card-action actionInLine">
           <a 
-            href="courses/{{id}}" 
+            href="courses/{{_id}}" 
             target="_blank"
             class="waves-effect waves-teal btn-flat"
             >more details
             </a>
           <a 
-            href="courses/{{id}}/edit?admission=true"
+            href="courses/{{_id}}/edit?admission=true"
             class="waves-effect waves-teal btn-flat"  
           >Redaction
           </a>
@@ -29,7 +28,7 @@
             <input 
              type="hidden" 
              name="id" 
-             value={{id}}>
+             value={{_id}}>
             <button 
               type="submit"
               class="waves-effect waves-teal btn-small"
@@ -37,7 +36,6 @@
             </button>
           </form>
         </div>
-        -->
       </div>
     </div>
   {{/each}}  
