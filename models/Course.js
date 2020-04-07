@@ -10,8 +10,9 @@ const course = new Schema ({
     type: Number,
     require: true
   },
-  image: {
-    type: String
+  img: {
+    type: String,
+    require: true
   }
 })
 

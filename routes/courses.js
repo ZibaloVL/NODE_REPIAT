@@ -3,12 +3,13 @@ const Course = require ( '../models/Course' )
 router = Router ()
 
 router.get ( '/', async ( req, res ) => {
-  const AllCourses = await Course.readAllCourse ()
+  const AllCourses = await Course.find ()
+  console.log ('AllCourses:',AllCourses)
   res.render ( 'courses', 
     {
       title: 'Courses',
       isCourses: true,
-      AllCourses: JSON.parse ( AllCourses )
+      AllCourses
     }
   )
 })

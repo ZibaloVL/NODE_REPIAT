@@ -1,17 +1,19 @@
   <h1>Courses</h1>
   {{#if AllCourses.length}}
    <div class="row">
-  {{#each  AllCourses}}
+  {{#each AllCourses}}
+    {{#with this}}
     <div class="col s4 m4">
       <div class="card">
         <div class="card-image">
           <img src={{img}}>
         </div>
-        <div class="card-content"> <span class="card-title">{{course}}</span></div>
+        <div class="card-content"> <span class="card-title">{{title}}</span></div>
         <hr>
         <div class="card-content">
           <p class="price">{{price}}</p>
         </div>
+        <!--
         <div class="card-action actionInLine">
           <a 
             href="courses/{{id}}" 
@@ -36,8 +38,10 @@
             </button>
           </form>
         </div>
+        -->
       </div>
     </div>
+    {{/with}}
   {{/each}}  
   </div>
   {{else}}
