@@ -28,19 +28,26 @@ router.get ('/:id/edit', async ( req, res ) => {
 })
 
 router.post ( '/edit', async ( req, res ) => {
-  console.log( 'req.body', req.body )
   const id = req.body.id
   delete req.body.id
-  console.log ('req.body', req.body )
-  console.log ('{id}', id )
   try {
-    await Course.findByIdAndUpdate ( { _id: `${id}`}, req.body )
+    await Course.updateOne ( { _id: `${id}`}, req.body )
     res.redirect('/courses')  
   } catch (error) {
     console.log('not redaction element')
     console.log ( error )
   }
 })
+
+router.post ('/remove', async ( req, res ) => {
+  try {
+    await Course.deleteOne({ _id: `${req.body.id}`})
+    res.redirect('/courses')  
+  } catch (error) {
+    console.log ('operation DELETE not complite!')
+    console.log ( error )
+  }
+} )
 
 router.get ( '/:id', async ( req, res ) => {
   const courseById = await Course.findById ( req.params.id )

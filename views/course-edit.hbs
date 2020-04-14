@@ -4,7 +4,7 @@
       <label for="">name course</label>
       <input type="text"
         class="form-control" 
-        name="course" 
+        name="title" 
         id="" 
         aria-describedby="helpId" 
         placeholder=""
@@ -43,6 +43,13 @@
     <button type="submit" class="btn btn-primary btn-lg">SEND</button>
   </form>
   <hr>
+  <form action="/courses/remove" method="POST">
+    <input 
+      type="hidden" 
+      name="id"
+      value={{course.id}}>
+    <button type="submit" class="btn btn-primary btn-lg">Remove</button>
+  </form>
   <a  href="/">Main page</a>
 
   
