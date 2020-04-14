@@ -18,8 +18,7 @@ router.post ( '/', async ( req, res ) => {
       {
         title: req.body.nameCourse,
         price: req.body.priceCourse,
-        img: req.body.imgUrlCourse,
-        userId: req.user._id
+        img: req.body.imgUrlCourse
       }
     )
     try {
