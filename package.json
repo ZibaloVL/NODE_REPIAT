@@ -27,6 +27,7 @@
     "nodemailer": "^6.3.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^1.19.2",
+    "npm-upgrade": "^2.0.3",
     "socket.io": "^2.3.0",
     "uuid": "^3.3.3"
   }
