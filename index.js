@@ -3,6 +3,8 @@ const path = require( 'path' )
 const exphbs  = require( 'express-handlebars' )
 const mongoose = require( 'mongoose')
 
+const User = require('./models/User')
+
 // =====ADD ROUTE PAGE=====
 const homePage = require('./routes/home')
 const coursesPage = require('./routes/courses')
@@ -23,6 +25,16 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 // set map for views
 app.set('views','views')
+
+app.use( async ( req, res, next ) => {
+  try {
+    const user = await User.findById('5e954c2851e4e964f4f42ae6')
+    req.user = user 
+    next()
+  } catch (error) {
+    console.log ( error )
+  }
+})
 
 app.use(express.static('public'))
 
