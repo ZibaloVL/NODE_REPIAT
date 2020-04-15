@@ -47,5 +47,21 @@ userShema.methods.addToCart = function ( course ) {
   // save _id in object items ????
 }
 
+userShema.methods.removeCourseFromCart = function ( id ) {
+  const items = [...this.cart.items]
+  const ind = items.findIndex ( i => i.courseId.toString() === id.toString() )
+  console.log ( 'ind', ind )
+  if ( ind != -1 ) {
+    if ( items[ ind ].count === 1) {
+      items.splice ( ind, 1 )
+    } else {
+      items[ ind ].count--
+    }
+    this.cart = {
+      items
+    }
+    return this.save()
+  } 
+}
 
 module.exports = model ( 'User', userShema ) // make model/ his want constructor param of shema
