@@ -1,4 +1,5 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model} = require ( 'mongoose' )
+
 
 
 orderShema = new Schema({
@@ -15,7 +16,7 @@ orderShema = new Schema({
     user: {
         name: String,
         userId: {
-            type: userShema.Types.Object,
+            type: Schema.Types.ObjectId,
             ref: 'User',
             require: true
         }
@@ -29,17 +30,4 @@ orderShema = new Schema({
 
 
 
-
 module.exports = model ('Orer', orderShema)
-/*
-_id orders
-last date 
-id user
-course :[
-    {
-        id course,
-        count: min 1
-    }
-]
-*/
-

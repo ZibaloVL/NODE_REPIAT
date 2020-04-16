@@ -64,4 +64,11 @@ userShema.methods.removeCourseFromCart = function ( id ) {
   } 
 }
 
+userShema.methods.cleanCart = function () {
+  this.cart = {
+    items:[]
+  }
+  return this.save()
+}
+
 module.exports = model ( 'User', userShema ) // make model/ his want constructor param of shema

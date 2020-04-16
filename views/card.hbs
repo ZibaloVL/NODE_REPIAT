@@ -32,6 +32,11 @@
     <div>
       <p> Summa: <span class="price">{{sum}}</span></p>
     </div>
+    <div>
+      <form action="/orders" method="POST">
+        <button type="submit" class="btn btn-primary btn-lg">SEND ORDERS</button>
+      </form>
+    </div>
   {{else}}
     <h2>cart is empty</h2>
   {{/if}}
