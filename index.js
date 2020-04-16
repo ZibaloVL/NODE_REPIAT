@@ -10,9 +10,14 @@ const homePage = require('./routes/home')
 const coursesPage = require('./routes/courses')
 const addPage = require('./routes/add')
 const card = require('./routes/card')
+const orders = require('./routes/orders')
 // ===== end ADD ROUTE PAGE=====
+
+
 const app = express()
 app.use(express.json()) // learn express worck json
+
+
 // make layout
 const hbs = exphbs.create(
   {
@@ -47,6 +52,7 @@ app.use('/', homePage)
 app.use('/courses', coursesPage)
 app.use('/add', addPage)
 app.use('/card', card)
+app.use('/orders', orders)
 //----end registration page----
 
 // name db fotoroom 
