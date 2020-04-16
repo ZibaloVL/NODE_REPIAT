@@ -12,6 +12,7 @@ const addPage = require('./routes/add')
 const card = require('./routes/card')
 // ===== end ADD ROUTE PAGE=====
 const app = express()
+app.use(express.json()) // learn express worck json
 // make layout
 const hbs = exphbs.create(
   {

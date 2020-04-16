@@ -1,9 +1,13 @@
-document.querySelectorAll('.price').forEach(node=>{
-  node.textContent = new Intl.NumberFormat ('ru-Ru', {
+const toCurrency = price => {
+  return new Intl.NumberFormat('ru-RU', {
     currency: 'rub',
     style: 'currency'
-  }).format (node.textContent)
-}) 
+  }).format(price)
+}
+
+document.querySelectorAll('.price').forEach(node=>{
+  node.textContent = toCurrency( node.textContent )
+})
 
 const cards = document.querySelector('.card')
 
@@ -16,17 +20,33 @@ if ( cards ) {
         method: 'delete' 
       })
       .then( res => {
-        console.log (res)
-        res.json() //не приходит в тело card
+        return res.json() //не приходит в тело card
       })
       .then( card => {
         console.log ( 'card in app:', card )
         if ( card.courses.length ) {
-          console.log ('change')
+          const html = card.courses.map ( c=> {
+            return `
+            <tr>
+            <td>${c.title}</td>
+            <td>${c.price}</td>
+            <td>${c.count}</td>
+            <td>
+              <button class="btn btm-small js-remove cardRemove" data-id="${c.id}">Удалить</button>
+            </td>
+          </tr>
+            `
+          }).join('')
+          let sum = 0
+          card.courses.forEach( e => {
+            sum += e.count*e.price
+          })
+          console.log('sum=', sum)
+          cards.querySelector('tbody').innerHTML = html
+          cards.querySelector('.price').textContent = toCurrency( sum )
         } else {
-          cards.innerrHTML = "<h2>cart is empty</h2>"
+          cards.innerHTML = "<h2>cart is empty</h2>"
         }
-      
       } ) 
     }
   })

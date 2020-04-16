@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\Node_blocl3_18"
 		}
 	]
 }
