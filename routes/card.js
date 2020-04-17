@@ -1,65 +1,52 @@
-const { Router } = require( 'express' )
-const Course = require ( '../models/Course' )
-const User = require ( '../models/User' )
-router = Router ()
+const {Router} = require('express')
+const Course = require('../models/course')
+const router = Router()
 
-function AllInCard (items) { 
-  return items.map ( item => (
-    {
-      title: item.courseId.title,
-      id: item.courseId._id,
-      price: item.courseId.price,
-      count: item.count
-    } 
-  ))
-}
-function summCart (items) {
-  let summ = 0
-  items.forEach(element => {
-    summ+= element.courseId.price*element.count
-  });
-  return summ
+
+function mapCartItems(cart) {
+  console.log( 'cart', cart )
+  return cart.items.map(c => ({
+    ...c.courseId._doc, 
+    id: c.courseId.id,
+    count: c.count
+  }))
 }
 
-router.get ( '/', async ( req, res ) => {
-  const user = await req.user
-    .populate ( 'cart.items.courseId' )
-    .execPopulate()
-    res.render ( 'card', 
-      {
-        title: 'Card',
-        isCard: true,
-        courses: AllInCard (user.cart.items),
-        sum: summCart (user.cart.items)
-      }
-    )
+function computePrice(courses) {
+  return courses.reduce((total, course) => {
+    return total += course.price * course.count
+  }, 0)
+}
+
+router.post('/add', async (req, res) => {
+  const course = await Course.findById(req.body.id)
+  console.log('req.user', req.user )
+  await req.user.addToCart(course)
+  res.redirect('/card')
 })
 
-router.delete ('/remove/:id', async ( req, res ) => {
-  await req.user.removeCourseFromCart (req.params.id)
-  const user = await req.user
-    .populate ( 'cart.items.courseId' )
-    .execPopulate()
-    const card = {
-      title: 'Card',
-      isCard: true,
-      courses: AllInCard (user.cart.items),
-      sum: summCart (user.cart.items)
-    }
-    console.log ( 'card', card )
-    res.status(200).json(card) // не передаётся в тело card atributs?
+router.delete('/remove/:id', async (req, res) => {
+  await req.user.removeFromCart(req.params.id)
+  const user = await req.user.populate('cart.items.courseId').execPopulate()
+  const courses = mapCartItems(user.cart)
+  const cart = {
+    courses, price: computePrice(courses)
   }
-)
+  res.status(200).json(cart)
+})
 
-router.post('/', async ( req, res ) => {
-    const course = await Course.findById ( req.body.id )
-    try {
-      await req.user.addToCart( course )
-      res.redirect( '/' ) 
-    } catch ( error ) {
-      console.log ( error )
-    }
-  }
-)
+router.get('/', async (req, res) => {
+  const user = await req.user
+    .populate('cart.items.courseId')
+    .execPopulate()
+  const courses = mapCartItems(user.cart)
+
+  res.render('card', {
+    title: 'Корзина',
+    isCard: true,
+    courses: courses,
+    price: computePrice(courses)
+  })
+})
 
 module.exports = router

@@ -1,26 +1,23 @@
-  <h1>Add course</h1>
-  <form action="/add" method="POST">
-    <div class="form-group">
-      <label for="">name course</label>
-      <input type="text"
-        class="form-control" name="nameCourse" id="" aria-describedby="helpId" placeholder="">
-      <small id="helpId" class="form-text text-muted">введите имя курса</small>
-    </div>
-    <div class="form-group">
-      <label for="">price course</label>
-      <input type="text"
-        class="form-control" name="priceCourse" id="" aria-describedby="helpId" placeholder="">
-      <small id="helpId" class="form-text text-muted">введите цену курса</small>
-    </div>
-    <div class="form-group">
-      <label for="">img course</label>
-      <input type="text"
-        class="form-control" name="imgUrlCourse" id="" aria-describedby="helpId" placeholder="">
-      <small id="helpId" class="form-text text-muted">введите url img </small>
-    </div>
-    <button type="submit" class="btn btn-primary btn-lg">SEND</button>
-  </form>
-  <hr>
-  <a  href="/">Main page</a>
+<h1>Добавить новый курс</h1>
 
-  
+<form action="/add" method="POST">
+  <div class="input-field">
+    <input id="title" name="title" type="text" class="validate" required>
+    <label for="title">Название курса</label>
+    <span class="helper-text" data-error="Введите название"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="price" name="price" type="number" class="validate" required min="1">
+    <label for="price">Цена курса</label>
+    <span class="helper-text" data-error="Введите цену"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="img" name="img" type="text" class="validate" required>
+    <label for="img">URL картинки</label>
+    <span class="helper-text" data-error="Введите url картинки"></span>
+  </div>
+
+  <button class="btn btn-primary">Добавить курс</button>
+</form>

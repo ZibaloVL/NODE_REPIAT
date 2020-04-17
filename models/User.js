@@ -1,74 +1,70 @@
-const { Schema, model } = require( 'mongoose')
+const {Schema, model} = require('mongoose')
 
-userShema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
+const userSchema = new Schema({
   email: {
     type: String,
     required: true
   },
+  name: {
+    type: String,
+    required: true
+  },
   cart: {
-    items:[{
-      count: {
-        type: Number,
-        required: true,
-        defoult: 1
-      },
-      courseId: {
-        type: Schema.Types.ObjectId,
-        ref:'CourseRepiad',
-        required: true
+    items: [
+      {
+        count: {
+          type: Number,
+          required: true,
+          default: 1
+        },
+        courseId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Course',
+          required: true
+        }
       }
-    }]
+    ]
   }
 })
 
-userShema.methods.addToCart = function ( course ) {
 
+userSchema.methods.addToCart = function(course) {
   const items = [...this.cart.items]
-  console.log ( 'items', items )
-  
-  const ind = items.findIndex ( i => i.courseId.toString() === course._id.toString() )
-  console.log ( 'ind', ind )
-  if ( ind != -1) { 
-    items[ ind ].count += 1
+  const idx = items.findIndex(c => {
+    return c.courseId.toString() === course._id.toString()
+  })
+
+  if (idx >= 0) {
+    items[idx].count = items[idx].count + 1
   } else {
     items.push({
       courseId: course._id,
       count: 1
     })
   }
-  this.cart = {
-    items
-  }
-  return this.save()
-  // save _id in object items ????
-}
 
-userShema.methods.removeCourseFromCart = function ( id ) {
-  const items = [...this.cart.items]
-  const ind = items.findIndex ( i => i.courseId.toString() === id.toString() )
-  console.log ( 'ind', ind )
-  if ( ind != -1 ) {
-    if ( items[ ind ].count === 1) {
-      items.splice ( ind, 1 )
-    } else {
-      items[ ind ].count--
-    }
-    this.cart = {
-      items
-    }
-    return this.save()
-  } 
-}
-
-userShema.methods.cleanCart = function () {
-  this.cart = {
-    items:[]
-  }
+  this.cart = {items}
   return this.save()
 }
 
-module.exports = model ( 'User', userShema ) // make model/ his want constructor param of shema
+
+userSchema.methods.removeFromCart = function(id) {
+  let items = [...this.cart.items]
+  const idx = items.findIndex(c => c.courseId.toString() === id.toString())
+
+  if (items[idx].count === 1) {
+    items = items.filter(c => c.courseId.toString() !== id.toString())
+  } else {
+    items[idx].count--
+  }
+
+  this.cart = {items}
+  return this.save()
+}
+
+userSchema.methods.clearCart = function() {
+  this.cart = {items: []}
+  return this.save()
+}
+
+module.exports = model('User', userSchema)

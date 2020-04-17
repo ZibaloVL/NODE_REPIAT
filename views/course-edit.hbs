@@ -1,55 +1,30 @@
-  <h1>Edit course</h1>
-  <form action="/courses/edit" method="POST">
-    <div class="form-group">
-      <label for="">name course</label>
-      <input type="text"
-        class="form-control" 
-        name="title" 
-        id="" 
-        aria-describedby="helpId" 
-        placeholder=""
-        value={{course.title}}
-        >
-      <small id="helpId" class="form-text text-muted">введите имя курса</small>
-    </div>
-    <div class="form-group">
-      <label for="">price course</label>
-      <input type="text"
-        class="form-control" 
-        name="price" 
-        id="" 
-        aria-describedby="helpId" 
-        placeholder=""
-        value={{course.price}}
-        >
-      <small id="helpId" class="form-text text-muted">введите цену курса</small>
-    </div>
-    <div class="form-group">
-      <label for="">img course</label>
-      <input type="text"
-        class="form-control" 
-        name="img" 
-        id="" 
-        aria-describedby="helpId" 
-        placeholder=""
-        value={{course.img}}
-        >
-      <small id="helpId" class="form-text text-muted">введите url img </small>
-    </div>
-    <input 
-      type="hidden" 
-      name="id"
-      value={{course.id}}>
-    <button type="submit" class="btn btn-primary btn-lg">SEND</button>
-  </form>
-  <hr>
-  <form action="/courses/remove" method="POST">
-    <input 
-      type="hidden" 
-      name="id"
-      value={{course.id}}>
-    <button type="submit" class="btn btn-primary btn-lg">Remove</button>
-  </form>
-  <a  href="/">Main page</a>
+<h1>Редактировать {{course.title}}</h1>
 
-  
+<form action="/courses/edit" method="POST" class="course-form">
+  <div class="input-field">
+    <input id="title" name="title" type="text" class="validate" required value="{{course.title}}">
+    <label for="title">Название курса</label>
+    <span class="helper-text" data-error="Введите название"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="price" name="price" type="number" class="validate" required min="1"  value="{{course.price}}">
+    <label for="price">Цена курса</label>
+    <span class="helper-text" data-error="Введите цену"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="img" name="img" type="text" class="validate" required  value="{{course.img}}">
+    <label for="img">URL картинки</label>
+    <span class="helper-text" data-error="Введите url картинки"></span>
+  </div>
+
+  <input type="hidden" name="id" value="{{course.id}}">
+
+  <button type="submit" class="btn btn-primary">Редактировать курс</button>
+</form>
+
+<form action="/courses/remove" method="POST">
+  <input type="hidden" name="id" value="{{ course.id }}">
+  <button class="btn red">Удалить курс</button>
+</form>

@@ -1,20 +1,28 @@
-const { Schema, model } = require( 'mongoose')
+const {Schema, model} = require('mongoose')
 
-// make shema of db
-const course = new Schema ({
+const courseSchema = new Schema({
   title: {
     type: String,
-    require: true
+    required: true
   },
   price: {
     type: Number,
-    require: true
+    required: true
   },
-  img: {
-    type: String,
-    require: true
+  img: String,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 
+courseSchema.method('toClient', function() {
+  const course = this.toObject()
 
-module.exports = model ( 'CourseRepiad', course ) // make model/ his want constructor param of shema
+  course.id = course._id
+  delete course._id
+
+  return course
+})
+
+module.exports = model('Course', courseSchema)
