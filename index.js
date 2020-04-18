@@ -2,6 +2,9 @@ const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
+const session = require ('express-session')
+
+const varMiddleware = require('./middleware/variables')
 
 // =====ADD ROUTE PAGE=====
 const homeRoutes = require('./routes/home')
@@ -9,7 +12,7 @@ const cardRoutes = require('./routes/card')
 const addRoutes = require('./routes/add')
 const ordersRoutes = require('./routes/orders')
 const coursesRoutes = require('./routes/courses')
-const authRoutes = require('./routes/login')
+const authRoutes = require('./routes/auth')
 // ===== end ADD ROUTE PAGE=====
 
 const User = require('./models/user')
@@ -41,6 +44,21 @@ app.use(async (req, res, next) => {
 //static map registr
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
+app.use(session({
+  secret: 'keyboard nusha',
+  resave: false,
+  saveUninitialized: false, // in tutorial true
+  // cookie: { secure: true }
+}))
+
+//----session param
+
+
+app.use(varMiddleware)
+
+
+//----end session param
+
 
 
 
@@ -50,7 +68,7 @@ app.use('/add', addRoutes)
 app.use('/courses', coursesRoutes)
 app.use('/card', cardRoutes)
 app.use('/orders', ordersRoutes)
-app.use('/auth/login', authRoutes)
+app.use('/auth', authRoutes)
 //----end registration page----
 
 
