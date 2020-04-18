@@ -1,19 +1,21 @@
-const express = require('express')
-const path = require('path')
-const mongoose = require('mongoose')
-const exphbs = require('express-handlebars')
-const session = require ('express-session')
-MongoStore = require('connect-mongodb-session')(session) // for session in mongo db
+const express = require( 'express' )
+const path = require( 'path' )
+const mongoose = require( 'mongoose' )
+const exphbs = require( 'express-handlebars' )
+const session = require ( 'express-session' )
+MongoStore = require( 'connect-mongodb-session' )(session) // for session in mongo db
 
-const varMiddleware = require('./middleware/variables')
+
+const varMiddleware = require( './middleware/variables' )
+const userMidlewear = require ( './middleware/user' )
 
 // =====ADD ROUTE PAGE=====
-const homeRoutes = require('./routes/home')
-const cardRoutes = require('./routes/card')
-const addRoutes = require('./routes/add')
-const ordersRoutes = require('./routes/orders')
-const coursesRoutes = require('./routes/courses')
-const authRoutes = require('./routes/auth')
+const homeRoutes = require( './routes/home' )
+const cardRoutes = require( './routes/card' )
+const addRoutes = require( './routes/add' )
+const ordersRoutes = require( './routes/orders' )
+const coursesRoutes = require( './routes/courses' )
+const authRoutes = require( './routes/auth' )
 // ===== end ADD ROUTE PAGE=====
 
 
@@ -58,8 +60,9 @@ app.use(session({
 //----session param
 
 
-app.use(varMiddleware)
-
+app.use ( varMiddleware )
+console.log ('mid')
+app.use ( userMidlewear )
 
 //----end session param
 
