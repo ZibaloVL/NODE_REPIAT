@@ -7,13 +7,12 @@
       {{else}}
         <li><a href="/">Главная</a></li>
       {{/if}}
+      {{#if isCourses}}
+        <li class="active"><a href="/courses">Курсы</a></li>
+      {{else}}
+        <li><a href="/courses">Курсы</a></li>
+      {{/if}}
       {{#if isAuth}}
-        {{#if isCourses}}
-          <li class="active"><a href="/courses">Курсы</a></li>
-        {{else}}
-          <li><a href="/courses">Курсы</a></li>
-        {{/if}}
-
         {{#if isAdd}}
           <li class="active"><a href="/add">Добавить курс</a></li>
         {{else}}

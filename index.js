@@ -3,6 +3,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const session = require ('express-session')
+MongoStore = require('connect-mongodb-session')(session) // for session in mongo db
 
 const varMiddleware = require('./middleware/variables')
 
@@ -15,8 +16,10 @@ const coursesRoutes = require('./routes/courses')
 const authRoutes = require('./routes/auth')
 // ===== end ADD ROUTE PAGE=====
 
-const User = require('./models/user')
 
+//------ KEYS
+const MONGODB_URI = `mongodb+srv://fotoroom:kuEifC50kGaGa0pN@nodeshoplearn-fif3b.gcp.mongodb.net/shopRepiat`
+// ----
 const app = express()
 
 // make layout
@@ -24,6 +27,14 @@ const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: 'hbs'
 })
+
+//---- param for session store
+const store = new MongoStore({
+  collection: 'sessions',  // place in mongo where save seeion 
+  uri: MONGODB_URI
+})
+//---- end param for session store
+
 // make engine app
 app.engine('hbs', hbs.engine)
 // registration engine
@@ -31,15 +42,7 @@ app.set('view engine', 'hbs')
 // set map for views
 app.set('views', 'views')
 
-app.use(async (req, res, next) => {
-  try {
-    const user = await User.findById('5e99b5dee82be42a18cf90ea')
-    req.user = user
-    next() // need if of (user)?
-  } catch (e) {
-    console.log(e)
-  }
-})
+
 
 //static map registr
 app.use(express.static(path.join(__dirname, 'public')))
@@ -48,6 +51,7 @@ app.use(session({
   secret: 'keyboard nusha',
   resave: false,
   saveUninitialized: false, // in tutorial true
+  store: store 
   // cookie: { secure: true }
 }))
 
@@ -78,12 +82,12 @@ const PORT = process.env.PORT || 3000
 
 async function start() {
   try {
-    const url = `mongodb+srv://fotoroom:kuEifC50kGaGa0pN@nodeshoplearn-fif3b.gcp.mongodb.net/shopRepiat`
-    await mongoose.connect(url, {
+    await mongoose.connect( MONGODB_URI, {
       useNewUrlParser: true,
       useFindAndModify: false,
       useUnifiedTopology: true
     })
+/*
     const candidate = await User.findOne()
     if (!candidate) {
       const user = new User({
@@ -93,6 +97,7 @@ async function start() {
       })
       await user.save()
     }
+*/   
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`)
     })
