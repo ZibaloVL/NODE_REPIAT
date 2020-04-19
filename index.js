@@ -1,5 +1,6 @@
 const express = require( 'express' )
 const path = require( 'path' )
+const csrf = require ( 'csurf' ) //for token midw security
 const mongoose = require( 'mongoose' )
 const exphbs = require( 'express-handlebars' )
 const session = require ( 'express-session' )
@@ -45,9 +46,12 @@ app.set('views', 'views')
 
 
 
-//static map registr
+//----static map registr
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
+//---- endstatic map registr
+
+// --- reg session 
 app.use(session({
   secret: 'keyboard nusha',
   resave: false,
@@ -55,6 +59,7 @@ app.use(session({
   store: store 
   // cookie: { secure: true }
 }))
+app.use ( csrf() ) //secuirty mid w
 
 //----session param
 
