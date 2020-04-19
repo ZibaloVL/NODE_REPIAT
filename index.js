@@ -5,7 +5,6 @@ const exphbs = require( 'express-handlebars' )
 const session = require ( 'express-session' )
 MongoStore = require( 'connect-mongodb-session' )(session) // for session in mongo db
 
-
 const varMiddleware = require( './middleware/variables' )
 const userMidlewear = require ( './middleware/user' )
 
@@ -61,7 +60,6 @@ app.use(session({
 
 
 app.use ( varMiddleware )
-console.log ('mid')
 app.use ( userMidlewear )
 
 //----end session param
