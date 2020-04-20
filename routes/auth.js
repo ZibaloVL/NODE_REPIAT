@@ -7,7 +7,9 @@ router.get ( '/login', async ( req, res ) => {
         res.render( 'auth/login',
         {
             isLogin: true,
-            title: 'Enter'
+            title: 'Enter',
+            errorReg: req.flash( 'errorReg' )[0],
+            errorPar: req.flash( 'errorPar' )[0]
         })
     }
 )
@@ -23,8 +25,7 @@ router.post ( '/login' , async ( req, res ) => {
     try {
         const candidate = await User.findOne ( {email} )
         if ( candidate ) {
-            const areSame = bcrypt.compare ( password, candidate.password )
-
+            const areSame =await bcrypt.compare ( password, candidate.password )
             if ( areSame ) {
                 req.session.user = candidate
                 req.session.isAuthenticated = true
@@ -34,6 +35,7 @@ router.post ( '/login' , async ( req, res ) => {
                     }
                 )
             } else {
+                req.flash ('errorPar', 'Неверный пароль')
                 res.redirect('/auth/login#login')    
             }    
         } else {
@@ -50,6 +52,7 @@ router.post ( '/register', async ( req, res ) => {
     try {
         const candidate = await User.findOne ( { email } )
         if ( candidate ) {
+            req.flash ('errorReg', 'Пользователь с таким email уже существует')
             res.redirect('/auth/login#register')    
         } else {
             if ( password === confirm ) {

@@ -1,6 +1,7 @@
 const express = require( 'express' )
 const path = require( 'path' )
 const csrf = require ( 'csurf' ) //for token midw security
+const flash = require('connect-flash') // for error message
 const mongoose = require( 'mongoose' )
 const exphbs = require( 'express-handlebars' )
 const session = require ( 'express-session' )
@@ -60,7 +61,7 @@ app.use(session({
   // cookie: { secure: true }
 }))
 app.use ( csrf() ) //secuirty mid w
-
+app.use ( flash() ) // massage servis
 //----session param
 
 

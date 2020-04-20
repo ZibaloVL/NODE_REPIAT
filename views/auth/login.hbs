@@ -1,5 +1,11 @@
 <div class="auth">
   <div class="row">
+      {{#if errorReg}}
+        <p>{{@root.errorReg}}</p>
+      {{/if}}
+      {{#if errorPar}}
+        <p>{{@root.errorPar}}</p>
+      {{/if}}
     <div class="col s12">
       <ul class="tabs">
         <li class="tab col s6"><a class="active" href="#login">Войти</a></li>
